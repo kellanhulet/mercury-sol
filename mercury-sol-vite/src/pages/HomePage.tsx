@@ -1,10 +1,12 @@
-import React from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, ArrowRight, Phone, Mail, CheckCircle } from "lucide-react";
+import { Building2 } from "lucide-react";
+import { Wallet } from "@/components/ui/wallet";
 
-const HomePage = () => {
+export const HomePage = () => {
+  const [walletAddress, setWalletAddress] = useState<string | undefined>();
+
   return (
     <div className="w-screen min-h-screen">
       {/* Header */}
@@ -22,27 +24,16 @@ const HomePage = () => {
       <section className="py-4">
         <Input type="email" placeholder="Abc123..." />
       </section>
+      <section>
+        <label>
+          Wallet Adress
+          <input
+            className="bg-white border"
+            onChange={(e) => setWalletAddress(e.target.value)}
+          />
+        </label>
+        {walletAddress && <Wallet walletAddress={walletAddress} />}
+      </section>
     </div>
   );
 };
-
-// Sample services data
-const services = [
-  {
-    title: "Strategic Consulting",
-    description: "Expert guidance for your business growth",
-    features: ["Business Analysis", "Market Research", "Growth Strategy"],
-  },
-  {
-    title: "Digital Solutions",
-    description: "Modern technology for modern business",
-    features: ["Web Development", "Cloud Services", "Digital Marketing"],
-  },
-  {
-    title: "Financial Services",
-    description: "Optimize your financial operations",
-    features: ["Financial Planning", "Risk Management", "Investment Advisory"],
-  },
-];
-
-export default HomePage;
