@@ -3,22 +3,31 @@ import { useEffect, useState } from "react";
 
 export const Wallet = ({ walletAddress }: { walletAddress: string }) => {
   const [balance, setBalance] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWalletInfo = async () => {
       try {
-        const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+        setLoading(true);
+        const connection = new Connection(clusterApiUrl("devnet"));
 
         const pubKey = new PublicKey(walletAddress);
 
-        const accountInfo = await connection.getAccountInfo(pubKey);
-        console.log(accountInfo);
+        // Get balance instead of account info
+        const balanceInLamports = await connection.getBalance(pubKey);
+        const solBalance = balanceInLamports / 1000000000;
 
-        setBalance(0);
-        console.log(balance);
+        setBalance(solBalance);
+        setError(null);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching balance:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch balance"
+        );
         setBalance(null);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -32,7 +41,13 @@ export const Wallet = ({ walletAddress }: { walletAddress: string }) => {
       <h1>Wallet Info</h1>
       <div>
         <p>Wallet Address: {walletAddress}</p>
-        <p>Balance: {balance} SOL</p>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : (
+          <p>Balance: {balance?.toFixed(4)} SOL</p>
+        )}
       </div>
     </div>
   );
