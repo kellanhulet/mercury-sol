@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, ArrowRight, Phone, Mail, CheckCircle } from "lucide-react";
+import TokenScanner from "@/components/TokenScanner";
 
 const HomePage = () => {
   return (
@@ -19,9 +20,14 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-4">
+      {/* <section className="py-4 px-4">
         <Input type="email" placeholder="Abc123..." />
-      </section>
+        <Button>Search</Button>
+      </section> */}
+
+      <div>
+        <TokenScanner tokenAddress="HNg5PYJmtqcmzXrv6S9zP1CDKk5BgDuyFBxbvNApump" />
+      </div>
     </div>
   );
 };

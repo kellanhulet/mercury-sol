@@ -4,9 +4,15 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    global: {},
+    "process.env": {},
+    Buffer: ["buffer", "Buffer"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      buffer: "buffer",
     },
   },
 });
