@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Building2 } from "lucide-react";
 import { Wallet } from "@/components/ui/wallet";
 
-export const HomePage = () => {
+export default function HomePage() {
   const [walletAddress, setWalletAddress] = useState<string | undefined>();
 
   return (
@@ -36,4 +36,4 @@ export const HomePage = () => {
       </section>
     </div>
   );
-};
+}
