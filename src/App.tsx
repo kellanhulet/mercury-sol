@@ -1,9 +1,9 @@
-import { Homepage } from "./components/Homepage";
+import Messaging from "./components/Messaging";
 
 function App() {
   return (
     <>
-      <Homepage />
+      <Messaging />
     </>
   );
 }
